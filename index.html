@@ -1,120 +1,113 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-
-<!-- SEO CORE -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Khách sạn Hạ Linh Vũng Tàu | Gần biển | Giá tốt</title>
-
-<meta name="description" content="Khách sạn Hạ Linh Vũng Tàu gần biển, phòng sạch đẹp, giá tốt. Đặt phòng nhanh qua Zalo hoặc Booking.">
-
-<meta name="keywords" content="khách sạn Vũng Tàu, hotel Vung Tau, khách sạn gần biển, hotel near beach Vung Tau">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Hạ Linh Hotel Vũng Tàu">
-<meta property="og:description" content="Khách sạn gần biển, giá tốt, phòng đẹp">
-<meta property="og:image" content="https://images.unsplash.com/photo-1542314831">
-<meta property="og:type" content="website">
+<title>Hạ Linh Hotel Vũng Tàu</title>
 
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Schema JSON-LD -->
-<script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@type": "Hotel",
- "name": "Hạ Linh Hotel",
- "address": {
-   "@type": "PostalAddress",
-   "addressLocality": "Vũng Tàu",
-   "addressCountry": "VN"
- },
- "telephone": "+84365203109"
-}
-</script>
+<!-- Flatpickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
-.hero {
-background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
-url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920');
-background-size: cover;
-background-position: center;
-}
-</style>
+body { font-family: 'Segoe UI', sans-serif; }
 
+.hero {
+  background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
+  url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920');
+  background-size: cover;
+  background-position: center;
+}
+
+.slider img { display:none; }
+.slider img.active { display:block; }
+
+.lightbox {
+position:fixed; inset:0; background:rgba(0,0,0,.9);
+display:none; align-items:center; justify-content:center;
+}
+.lightbox img { max-width:90%; max-height:90%; }
+</style>
 </head>
 
 <body class="bg-white text-gray-800">
 
 <!-- NAV -->
-<nav class="fixed w-full bg-white/80 backdrop-blur z-50 px-6 py-3 flex justify-between shadow">
+<nav class="fixed w-full bg-white/80 backdrop-blur z-50 px-6 py-4 flex justify-between shadow">
 <b>Hạ Linh Hotel</b>
+
 <div class="space-x-4 text-sm">
 <a href="#rooms">Phòng</a>
-<a href="#guide">Ăn chơi</a>
+<a href="#gallery">Gallery</a>
+<a href="#map">Vị trí</a>
 <a href="#booking">Đặt phòng</a>
+
+<button onclick="toggleLang()" class="border px-2 py-1 rounded">EN/VI</button>
 </div>
 </nav>
 
 <!-- HERO -->
-<header class="hero h-screen flex items-center justify-center text-white text-center px-4">
+<header class="hero h-screen flex items-center justify-center text-white text-center">
 <div>
-<h1 class="text-5xl font-bold mb-4">Khách sạn Hạ Linh Vũng Tàu</h1>
-<p class="mb-6">Gần biển · Giá tốt · Phòng sạch</p>
+<h1 class="text-5xl font-light mb-4">Hạ Linh Hotel</h1>
+<p class="mb-6">Boutique stay gần biển</p>
 <a href="#rooms" class="bg-white text-black px-6 py-3 rounded-full">
-Xem phòng
+Khám phá
 </a>
 </div>
 </header>
 
 <!-- ROOMS -->
 <section id="rooms" class="py-20 max-w-6xl mx-auto px-4">
-<h2 class="text-3xl font-bold text-center mb-12">Các hạng phòng</h2>
+<h2 class="text-3xl text-center mb-10">Hạng phòng</h2>
 
-<div class="grid md:grid-cols-3 gap-8">
+<div class="grid md:grid-cols-3 gap-6">
 
-<div class="shadow rounded p-4">
-<h3 class="font-bold">Superior</h3>
-<p>Phòng tiêu chuẩn giá tốt, phù hợp 2 người.</p>
+<div class="shadow">
+<div class="slider" onclick="nextSlide(this)">
+<img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304" class="active h-60 w-full object-cover">
+<img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2" class="h-60 w-full object-cover">
+</div>
+<div class="p-4">Superior</div>
 </div>
 
-<div class="shadow rounded p-4">
-<h3 class="font-bold">Deluxe Ocean</h3>
-<p>View biển, ban công rộng, phù hợp cặp đôi.</p>
+<div class="shadow">
+<div class="slider" onclick="nextSlide(this)">
+<img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39" class="active h-60 w-full object-cover">
+<img src="https://images.unsplash.com/photo-1582719478250" class="h-60 w-full object-cover">
+</div>
+<div class="p-4">Deluxe</div>
 </div>
 
-<div class="shadow rounded p-4">
-<h3 class="font-bold">Family</h3>
-<p>Phòng rộng, phù hợp gia đình.</p>
+<div class="shadow">
+<div class="slider" onclick="nextSlide(this)">
+<img src="https://images.unsplash.com/photo-1590490360182-c33d57733427" class="active h-60 w-full object-cover">
+<img src="https://images.unsplash.com/photo-1505691938895" class="h-60 w-full object-cover">
+</div>
+<div class="p-4">Family</div>
 </div>
 
 </div>
 </section>
 
-<!-- LOCAL GUIDE -->
-<section id="guide" class="py-16 bg-gray-100 px-4">
-<h2 class="text-2xl font-bold text-center mb-8">Ăn chơi Vũng Tàu</h2>
+<!-- GALLERY -->
+<section id="gallery" class="py-20 bg-gray-100">
+<h2 class="text-center text-2xl mb-6">Gallery</h2>
 
-<div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-
-<div>
-<h3 class="font-bold">Bánh khọt Gốc Vú Sữa</h3>
-<p class="text-sm text-gray-500">Đặc sản nổi tiếng</p>
-</div>
-
-<div>
-<h3 class="font-bold">Bãi Sau</h3>
-<p class="text-sm text-gray-500">Bãi biển đẹp gần khách sạn</p>
-</div>
-
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto px-4">
+<img src="https://images.unsplash.com/photo-1566073771259" onclick="openImg(this)">
+<img src="https://images.unsplash.com/photo-1582719478250" onclick="openImg(this)">
+<img src="https://images.unsplash.com/photo-1611892440504" onclick="openImg(this)">
+<img src="https://images.unsplash.com/photo-1590490360182" onclick="openImg(this)">
 </div>
 </section>
 
 <!-- MAP -->
-<section class="py-16">
+<section id="map" class="py-20">
 <h2 class="text-center text-2xl mb-6">Vị trí</h2>
 
 <div class="max-w-5xl mx-auto px-4">
@@ -123,56 +116,140 @@ class="w-full h-96 rounded"></iframe>
 </div>
 </section>
 
-<!-- OTA -->
-<section class="py-16 bg-gray-100 text-center">
-<h2 class="text-2xl font-bold mb-6">Đặt phòng</h2>
-
-<div class="flex justify-center gap-6 flex-wrap">
-<a href="#" class="bg-white px-6 py-3 shadow rounded">Booking.com</a>
-<a href="#" class="bg-white px-6 py-3 shadow rounded">Agoda</a>
-<a href="https://zalo.me/0365203109" class="bg-blue-500 text-white px-6 py-3 rounded">Zalo</a>
-<a href="tel:0365203109" class="bg-green-500 text-white px-6 py-3 rounded">Hotline</a>
-</div>
-</section>
-
 <!-- BOOKING -->
-<section id="booking" class="py-16 bg-gray-50 px-4">
-<div class="max-w-lg mx-auto bg-white p-6 shadow rounded">
+<section id="booking" class="py-20 bg-gray-50">
+<div class="max-w-2xl mx-auto bg-white p-8 shadow rounded">
 
-<h2 class="text-xl font-bold mb-4 text-center">Gửi yêu cầu</h2>
+<h2 id="booking-title" class="text-center text-xl mb-4">
+Gửi thông tin đặt phòng
+</h2>
 
-<form onsubmit="sendZalo(event)" class="space-y-3">
-<input id="name" placeholder="Tên" class="w-full border p-2">
-<input id="phone" placeholder="SĐT" class="w-full border p-2">
-<select id="room" class="w-full border p-2">
+<form onsubmit="sendZalo(event)" class="grid md:grid-cols-2 gap-4">
+
+<input id="name" placeholder="Tên (không bắt buộc)" class="border p-3 col-span-2">
+
+<input id="phone" placeholder="SĐT Zalo (bắt buộc)" class="border p-3 col-span-2">
+
+<input id="checkin" placeholder="Check-in" class="border p-3">
+<input id="checkout" placeholder="Check-out" class="border p-3">
+
+<select id="guest" class="border p-3">
+<option value="">Số khách</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4+</option>
+</select>
+
+<select id="room" class="border p-3">
+<option value="">Chọn hạng phòng</option>
 <option>Superior</option>
 <option>Deluxe</option>
 <option>Family</option>
 </select>
 
-<button class="bg-black text-white w-full py-2">
-Gửi Zalo
+<textarea id="note" placeholder="Ghi chú" class="border p-3 col-span-2"></textarea>
+
+<button class="bg-black text-white py-3 col-span-2">
+Gửi thông tin
 </button>
+
 </form>
 
 </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="bg-black text-white py-10 text-center">
-<p>Hạ Linh Hotel</p>
-<p class="text-sm opacity-60">Vũng Tàu</p>
-<p class="text-xs opacity-40 mt-4">© 2026</p>
-</footer>
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+<img id="lightbox-img">
+</div>
 
 <script>
+// SLIDER
+function nextSlide(el){
+let imgs = el.querySelectorAll('img');
+let i = [...imgs].findIndex(img=>img.classList.contains('active'));
+imgs[i].classList.remove('active');
+imgs[(i+1)%imgs.length].classList.add('active');
+}
+
+// LIGHTBOX
+function openImg(img){
+document.getElementById('lightbox').style.display='flex';
+document.getElementById('lightbox-img').src = img.src;
+}
+
+// DATE PICKER
+const today = new Date();
+const tomorrow = new Date();
+tomorrow.setDate(today.getDate()+1);
+
+flatpickr("#checkin", {
+dateFormat: "d/m/Y",
+defaultDate: today,
+minDate: "today",
+onChange: function(selectedDates){
+checkoutPicker.set("minDate", selectedDates[0]);
+}
+});
+
+const checkoutPicker = flatpickr("#checkout", {
+dateFormat: "d/m/Y",
+defaultDate: tomorrow,
+minDate: tomorrow
+});
+
+// LANG
+let lang='vi';
+function toggleLang(){
+lang = lang==='vi'?'en':'vi';
+document.getElementById('booking-title').innerText =
+lang==='vi'?'Gửi thông tin đặt phòng':'Send booking request';
+}
+
+// FORMAT DATE
+function formatDate(d){
+let parts = d.split("/");
+return `${parts[0]}/${parts[1]}/${parts[2]}`;
+}
+
+// ZALO
 function sendZalo(e){
 e.preventDefault();
-let name = document.getElementById('name').value;
-let phone = document.getElementById('phone').value;
-let room = document.getElementById('room').value;
 
-let msg = `Booking:%0A${name}%0A${phone}%0A${room}`;
+let name = document.getElementById('name').value || "";
+let phone = document.getElementById('phone').value;
+let checkin = document.getElementById('checkin').value;
+let checkout = document.getElementById('checkout').value;
+let guest = document.getElementById('guest').value;
+let room = document.getElementById('room').value;
+let note = document.getElementById('note').value;
+
+if(!phone){
+alert("Vui lòng điền số điện thoại liên hệ để được hỗ trợ đặt phòng");
+return;
+}
+
+if(!checkin || !checkout){
+alert("Vui lòng chọn ngày");
+return;
+}
+
+if(!room){
+alert("Vui lòng chọn hạng phòng");
+return;
+}
+
+let msg =
+`Thông tin khách đặt phòng:%0A%0A
+Tên: ${name}%0A
+SĐT Zalo: ${phone}%0A
+Check-in: ${checkin}%0A
+Check-out: ${checkout}%0A
+Số khách: ${guest}%0A
+Hạng phòng: ${room}%0A
+Ghi chú: ${note}`;
+
 window.open(`https://zalo.me/0365203109?text=${msg}`);
 }
 </script>
