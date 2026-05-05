@@ -1,92 +1,132 @@
 <!DOCTYPE html>
-<html lang="vi" x-data="app()">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Booking - Hạ Linh Hotel</title>
+<title>Hạ Linh Hotel</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<style>body{font-family:sans-serif}</style>
+
+<style>
+body { font-family: sans-serif; }
+.hero {
+  background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+  url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920');
+  background-size: cover;
+  background-position: center;
+}
+</style>
 </head>
-<body class="bg-slate-100 p-6">
 
-<h1 class="text-2xl font-bold mb-6">📋 Quản lý Booking</h1>
+<body x-data="app()" class="bg-slate-50">
 
-<!-- FORM INPUT -->
-<div class="bg-white p-4 rounded shadow mb-6">
-  <h2 class="font-semibold mb-3">Thêm booking</h2>
-  <div class="grid md:grid-cols-5 gap-2">
-    <input x-model="form.name" placeholder="Tên" class="border p-2">
-    <input x-model="form.phone" placeholder="SĐT" class="border p-2">
-    <input x-model="form.room" placeholder="Phòng" class="border p-2">
-    <input x-model="form.date" type="date" class="border p-2">
-    <button @click="addBooking()" class="bg-blue-600 text-white px-4">Thêm</button>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-white/80 backdrop-blur px-4 py-3 flex justify-between">
+  <b>Hạ Linh Hotel</b>
+  <button @click="toggleLang()" class="border px-3 py-1 rounded">
+    <span x-text="lang==='vi'?'EN':'VI'"></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<header class="hero h-screen flex items-center justify-center text-white text-center px-4">
+  <div>
+    <h1 class="text-4xl md:text-6xl font-bold mb-4" x-text="t('title')"></h1>
+    <p class="mb-6" x-html="t('subtitle')"></p>
+    <a href="#booking" class="bg-blue-600 px-6 py-3 rounded" x-text="t('book')"></a>
+  </div>
+</header>
+
+<!-- ROOMS -->
+<section class="py-16 max-w-6xl mx-auto px-4">
+<h2 class="text-2xl font-bold text-center mb-8" x-text="t('rooms')"></h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+  <div class="bg-white p-4 rounded shadow">
+    <h3>Superior</h3>
+    <p>600.000đ</p>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h3>Deluxe</h3>
+    <p>900.000đ</p>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h3>Family</h3>
+    <p>1.400.000đ</p>
   </div>
 </div>
+</section>
 
-<!-- TABLE -->
-<div class="bg-white rounded shadow overflow-x-auto">
-  <table class="w-full text-sm">
-    <thead class="bg-slate-200">
-      <tr>
-        <th class="p-2">Tên</th>
-        <th>SĐT</th>
-        <th>Phòng</th>
-        <th>Ngày</th>
-        <th>Trạng thái</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <template x-for="(b,i) in bookings" :key="i">
-        <tr class="border-t">
-          <td class="p-2" x-text="b.name"></td>
-          <td x-text="b.phone"></td>
-          <td x-text="b.room"></td>
-          <td x-text="b.date"></td>
-          <td>
-            <select x-model="b.status" class="border">
-              <option>Pending</option>
-              <option>Confirmed</option>
-              <option>Done</option>
-            </select>
-          </td>
-          <td>
-            <button @click="remove(i)" class="text-red-500">X</button>
-          </td>
-        </tr>
-      </template>
-    </tbody>
-  </table>
-</div>
+<!-- BOOKING -->
+<section id="booking" class="py-16 bg-slate-100 px-4">
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
 
-<!-- EXPORT -->
-<div class="mt-6">
-  <button @click="exportData()" class="bg-green-600 text-white px-4 py-2">Export CSV</button>
+<h2 class="text-xl font-bold mb-4" x-text="t('form')"></h2>
+
+<form @submit.prevent="submitBooking()" class="space-y-3">
+  <input x-model="form.name" required placeholder="Name" class="w-full border p-2">
+  <input x-model="form.phone" required placeholder="Phone" class="w-full border p-2">
+  <input x-model="form.checkin" type="date" required class="w-full border p-2">
+  <input x-model="form.checkout" type="date" required class="w-full border p-2">
+
+  <select x-model="form.room" class="w-full border p-2">
+    <option>Superior</option>
+    <option>Deluxe</option>
+    <option>Family</option>
+  </select>
+
+  <button class="bg-blue-600 text-white w-full py-2 rounded">
+    <span x-text="t('submit')"></span>
+  </button>
+</form>
+
+<p x-show="success" class="text-green-600 mt-3">✔ Đã gửi booking!</p>
+
 </div>
+</section>
 
 <script>
 function app(){
 return{
-form:{name:'',phone:'',room:'',date:''},
-bookings:JSON.parse(localStorage.getItem('bookings')||'[]'),
-addBooking(){
-this.bookings.push({...this.form,status:'Pending'});
-this.save();
-this.form={name:'',phone:'',room:'',date:''}
+lang:'vi',
+success:false,
+
+form:{name:'',phone:'',checkin:'',checkout:'',room:''},
+
+translations:{
+vi:{
+title:'Hạ Linh Hotel',
+subtitle:'Khách sạn tiện nghi tại Vũng Tàu',
+book:'Đặt phòng',
+rooms:'Hạng phòng',
+form:'Đặt phòng nhanh',
+submit:'Gửi'
 },
-remove(i){this.bookings.splice(i,1);this.save()},
-save(){localStorage.setItem('bookings',JSON.stringify(this.bookings))},
-exportData(){
-let csv='Name,Phone,Room,Date,Status\n';
-this.bookings.forEach(b=>{
-csv+=`${b.name},${b.phone},${b.room},${b.date},${b.status}\n`
+en:{
+title:'Ha Linh Hotel',
+subtitle:'Comfort stay in Vung Tau',
+book:'Book now',
+rooms:'Rooms',
+form:'Booking',
+submit:'Submit'
+}
+},
+
+toggleLang(){this.lang=this.lang==='vi'?'en':'vi'},
+t(k){return this.translations[this.lang][k]},
+
+async submitBooking(){
+
+const url = "YOUR_GOOGLE_SCRIPT_URL";
+
+await fetch(url,{
+method:"POST",
+body:JSON.stringify(this.form)
 });
-let blob=new Blob([csv],{type:'text/csv'});
-let a=document.createElement('a');
-a.href=URL.createObjectURL(blob);
-a.download='booking.csv';
-a.click();
+
+this.success=true;
+this.form={name:'',phone:'',checkin:'',checkout:'',room:''}
 }
 }
 }
