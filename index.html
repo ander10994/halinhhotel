@@ -73,24 +73,13 @@
             .booking-input { font-size: 0.85rem !important; padding: 0.75rem 1rem !important; }
         }
 
-        /* Hiệu ứng nút Hotline Desktop */
-        .hotline-btn:hover .hotline-number {
-            max-width: 200px;
-            margin-left: 10px;
-            opacity: 1;
-        }
-        .hotline-number {
-            max-width: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: all 0.5s ease;
-            white-space: nowrap;
-        }
+        .hotline-btn:hover .hotline-number { max-width: 200px; margin-left: 10px; opacity: 1; }
+        .hotline-number { max-width: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; white-space: nowrap; }
     </style>
 </head>
 <body class="font-sans pb-24 md:pb-0">
 
-    <div class="hidden md:flex fixed right-6 bottom-24 flex-col gap-4 z-[110]">
+    <div class="hidden md:flex fixed right-6 bottom-32 flex-col gap-4 z-[120]">
         <div onclick="window.location.href='tel:0365203109'" class="hotline-btn flex items-center bg-gold-500 text-ocean-900 p-3 rounded-full shadow-2xl cursor-pointer hover:scale-105 transition-all duration-300">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
             <span class="hotline-number font-bold">0365 203 109</span>
@@ -100,7 +89,7 @@
         </a>
     </div>
 
-    <button id="scrollToTop" class="fixed bottom-28 right-4 md:bottom-8 md:right-8 z-[120] bg-white/20 backdrop-blur-md text-white w-12 h-12 rounded-full border border-white/20 shadow-2xl flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-gold-500 hover:text-ocean-900 active:scale-95">
+    <button id="scrollToTop" class="fixed bottom-40 right-4 md:bottom-20 md:right-8 z-[130] bg-white/20 backdrop-blur-md text-white w-12 h-12 rounded-full border border-white/20 shadow-2xl flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-gold-500 hover:text-ocean-900 active:scale-95">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
@@ -204,7 +193,7 @@
                 <div class="w-20 h-1 bg-gold-500 mx-auto rounded-full shadow-[0_0_10px_rgba(251,191,36,0.5)]"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="room-card glass-box rounded-3xl overflow-hidden group">
                     <div class="relative overflow-hidden cursor-pointer" onclick="selectRoomDirect('New Moon')">
                         <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=800" class="w-full h-56 object-cover group-hover:scale-110 transition duration-700" alt="New Moon">
@@ -216,7 +205,7 @@
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold mb-1 text-white">New Moon</h3>
                         <p class="text-xs text-white/70 mb-4" data-i18n="room_1_desc">Phòng đơn tiêu chuẩn cho 2 người</p>
-                        <span class="text-xl font-bold text-gold-400">250k<span class="text-xs font-normal text-white/60">/đêm</span></span>
+                        <span class="text-xl font-bold text-gold-400">350k<span class="text-xs font-normal text-white/60">/đêm</span></span>
                     </div>
                 </div>
 
@@ -231,7 +220,7 @@
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold mb-1 text-white">Half Moon</h3>
                         <p class="text-xs text-white/70 mb-4" data-i18n="room_2_desc">Phòng đôi hiện đại, thoáng mát</p>
-                        <span class="text-xl font-bold text-gold-400">280k<span class="text-xs font-normal text-white/60">/đêm</span></span>
+                        <span class="text-xl font-bold text-gold-400">450k<span class="text-xs font-normal text-white/60">/đêm</span></span>
                     </div>
                 </div>
 
@@ -247,7 +236,7 @@
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold mb-1 text-white">Full Moon</h3>
                         <p class="text-xs text-white/70 mb-4" data-i18n="room_3_desc">Phòng gia đình cho 4 người lớn</p>
-                        <span class="text-xl font-bold text-gold-400">350k<span class="text-xs font-normal text-white/60">/đêm</span></span>
+                        <span class="text-xl font-bold text-gold-400">650k<span class="text-xs font-normal text-white/60">/đêm</span></span>
                     </div>
                 </div>
 
@@ -262,17 +251,21 @@
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold mb-1 text-white">Eclipse VIP</h3>
                         <p class="text-xs text-white/70 mb-4" data-i18n="room_4_desc">Phòng VIP cao cấp nhất</p>
-                        <span class="text-xl font-bold text-gold-400">380k<span class="text-xs font-normal text-white/60">/đêm</span></span>
+                        <span class="text-xl font-bold text-gold-400">800k<span class="text-xs font-normal text-white/60">/đêm</span></span>
                     </div>
                 </div>
             </div>
+
+            <p class="text-center text-white/60 text-[11px] md:text-sm italic" data-i18n="price_note">
+                (*) Mức giá áp dụng cho ngày thường. Vui lòng liên hệ để được báo giá chính xác cho thời điểm hiện tại (cuối tuần/lễ/tết).
+            </p>
         </div>
     </section>
 
     <section id="compare" class="py-12 md:py-24 relative z-10">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center text-white mb-12 uppercase drop-shadow-md" data-i18n="compare_title">So Sánh Chi Tiết</h2>
-            <div class="table-container overflow-x-auto glass-box rounded-3xl p-1">
+            <div class="table-container overflow-x-auto glass-box rounded-3xl p-1 mb-4">
                 <table class="w-full min-w-[800px] border-collapse overflow-hidden rounded-[20px]">
                     <thead class="bg-white/10 text-white border-b border-white/20">
                         <tr>
@@ -293,14 +286,17 @@
                         </tr>
                         <tr class="hover:bg-white/5 transition">
                             <td class="p-6 bg-white/5" data-i18n="th_price">Giá Ưu Đãi</td>
-                            <td class="p-6 text-center">250k</td>
-                            <td class="p-6 text-center">280k</td>
-                            <td class="p-6 text-center bg-gold-500/10 border-x border-gold-500/20 font-bold text-gold-400">350k</td>
-                            <td class="p-6 text-center">380k</td>
+                            <td class="p-6 text-center">350k</td>
+                            <td class="p-6 text-center">450k</td>
+                            <td class="p-6 text-center bg-gold-500/10 border-x border-gold-500/20 font-bold text-gold-400">650k</td>
+                            <td class="p-6 text-center">800k</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <p class="text-right text-white/50 text-[10px] md:text-xs italic px-4" data-i18n="price_note_short">
+                * Giá có thể thay đổi tùy theo thời điểm đặt phòng thực tế.
+            </p>
         </div>
     </section>
 
@@ -393,6 +389,8 @@
                 rooms_title: "Hệ Thống Phòng Lunar", room_select_btn: "CHỌN PHÒNG", btn_book_now_alt: "ĐẶT NGAY",
                 room_1_desc: "Phòng đơn tiêu chuẩn cho 2 người", room_2_desc: "Phòng đôi hiện đại, thoáng mát",
                 room_3_desc: "Phòng gia đình cho 4 người lớn", room_4_desc: "Phòng VIP cao cấp nhất",
+                price_note: "(*) Mức giá áp dụng cho ngày thường. Vui lòng liên hệ để được báo giá chính xác cho thời điểm hiện tại (cuối tuần/lễ/tết).",
+                price_note_short: "* Giá có thể thay đổi tùy theo thời điểm đặt phòng thực tế.",
                 compare_title: "So Sánh Chi Tiết", th_criteria: "Tiêu chí", th_bed: "Loại Giường", th_price: "Giá Ưu Đãi",
                 form_title: "ĐẶT PHÒNG NHANH", lbl_name: "Họ và Tên", lbl_phone: "Số điện thoại", lbl_room: "Hạng phòng", 
                 lbl_guests: "Số lượng người", lbl_checkin: "Ngày nhận", lbl_checkout: "Ngày trả", btn_submit: "GỬI YÊU CẦU ĐẶT PHÒNG"
@@ -407,6 +405,8 @@
                 rooms_title: "Lunar Concept Rooms", room_select_btn: "SELECT ROOM", btn_book_now_alt: "BOOK NOW",
                 room_1_desc: "Standard single for 2 persons", room_2_desc: "Modern double room",
                 room_3_desc: "Family room for 4 adults", room_4_desc: "Premium Suite VIP",
+                price_note: "(*) Prices apply to weekdays. Please contact us for accurate quotes for weekends or holidays.",
+                price_note_short: "* Prices may vary depending on the booking time.",
                 compare_title: "Detailed Comparison", th_criteria: "Criteria", th_bed: "Bed Type", th_price: "Special Price",
                 form_title: "QUICK BOOKING", lbl_name: "Full Name", lbl_phone: "Phone Number", lbl_room: "Room Type", 
                 lbl_guests: "Guests", lbl_checkin: "Check-in", lbl_checkout: "Check-out", btn_submit: "SUBMIT REQUEST"
@@ -440,7 +440,7 @@
             window.open(`https://zalo.me/0365203109?text=${msg}`, '_blank');
         }
 
-        // Logic Quay về đầu trang
+        // Logic Cuộn về đầu trang (Hiển thị sau 400px scroll)
         const scrollBtn = document.getElementById("scrollToTop");
         window.addEventListener("scroll", () => {
             if (window.pageYOffset > 400) {
@@ -456,15 +456,12 @@
 
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    
-    // Tối ưu vị trí bóng chat tawk.to để không đè lên nút Zalo mobile
     Tawk_API.customStyle = {
         visibility : {
-            desktop : { xOffset : 20, yOffset : 20 },
-            mobile : { xOffset : 10, yOffset : 80 } // Đẩy lên 80px để tránh thanh contact
+            desktop : { xOffset : 15, yOffset : 20 },
+            mobile : { xOffset : 10, yOffset : 75 } // Mobile nâng cao hơn để né thanh bottom
         }
     };
-
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
     s1.async=true;
@@ -475,21 +472,20 @@
     })();
     </script>
 
+    <div id="lunar-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden;"></div>
     <style>
-        #lunar-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--duration) ease-in-out infinite; }
         .moon-icon { position: absolute; color: rgba(251, 191, 36, 0.4); font-size: 1.2rem; pointer-events: none; animation: float-up var(--duration) linear forwards; }
         @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.7; transform: scale(1.2); } }
         @keyframes float-up { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.5; } 90% { opacity: 0.5; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
     </style>
-    <div id="lunar-container"></div>
     <script>
         const lunarContainer = document.getElementById('lunar-container');
         function createStars() {
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 40; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = Math.random() * 3 + 1 + 'px';
+                const size = Math.random() * 2 + 1 + 'px';
                 star.style.width = size; star.style.height = size;
                 star.style.top = Math.random() * 100 + 'vh';
                 star.style.left = Math.random() * 100 + 'vw';
@@ -498,11 +494,11 @@
                 lunarContainer.appendChild(star);
             }
         }
-        const icons = ['🌙', '⭐', '✨'];
+        const floatIcons = ['🌙', '⭐', '✨'];
         function createFloatingIcon() {
             const icon = document.createElement('div');
             icon.className = 'moon-icon';
-            icon.innerText = icons[Math.floor(Math.random() * icons.length)];
+            icon.innerText = floatIcons[Math.floor(Math.random() * floatIcons.length)];
             icon.style.left = Math.random() * 100 + 'vw';
             icon.style.setProperty('--duration', Math.random() * 10 + 15 + 's');
             icon.style.fontSize = Math.random() * 10 + 10 + 'px';
@@ -510,7 +506,7 @@
             setTimeout(() => icon.remove(), 25000);
         }
         createStars();
-        setInterval(createFloatingIcon, 3000); 
+        setInterval(createFloatingIcon, 4000); 
     </script>
 </body>
 </html>
