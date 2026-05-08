@@ -432,23 +432,86 @@
         90% { opacity: 0.8; }
         100% { transform: translate(calc(20vw - 10vw), 100vh) rotate(360deg); opacity: 0; }
     }
-</style>
-<div id="leaves-container"></div>
-<script>
-    const container = document.getElementById('leaves-container');
-    const leaves = ['🍃', '🍂', '🍁']; // Các loại lá
-    function createLeaf() {
-        const leaf = document.createElement('div');
-        leaf.className = 'leaf';
-        leaf.innerText = leaves[Math.floor(Math.random() * leaves.length)];
-        leaf.style.left = Math.random() * 100 + 'vw';
-        leaf.style.animationDuration = Math.random() * 3 + 4 + 's'; // Rơi từ 4-7s
-        leaf.style.fontSize = Math.random() * 10 + 15 + 'px'; // Kích thước to nhỏ ngẫu nhiên
-        leaf.style.filter = 'drop-shadow(0 0 2px rgba(0,0,0,0.2))';
-        container.appendChild(leaf);
-        setTimeout(() => { leaf.remove(); }, 7000);
+<style>
+    #lunar-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 90;
+        overflow: hidden;
     }
-    setInterval(createLeaf, 800); // 0.8s rớt 1 lá
+    .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        opacity: 0;
+        animation: twinkle var(--duration) ease-in-out infinite;
+    }
+    .moon-icon {
+        position: absolute;
+        color: rgba(251, 191, 36, 0.4); /* Màu vàng gold nhạt */
+        font-size: 1.2rem;
+        pointer-events: none;
+        animation: float-up var(--duration) linear forwards;
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0; transform: scale(0.5); }
+        50% { opacity: 0.7; transform: scale(1.2); }
+    }
+
+    @keyframes float-up {
+        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.5; }
+        90% { opacity: 0.5; }
+        100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+</style>
+
+<div id="lunar-container"></div>
+
+<script>
+    const lunarContainer = document.getElementById('lunar-container');
+    
+    // Tạo sao lấp lánh cố định (Twinkling Stars)
+    function createStars() {
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            star.style.animationDelay = Math.random() * 5 + 's';
+            lunarContainer.appendChild(star);
+        }
+    }
+
+    // Tạo các icon mặt trăng/ngôi sao trôi nhẹ (Floating Icons)
+    const icons = ['🌙', '⭐', '✨'];
+    function createFloatingIcon() {
+        const icon = document.createElement('div');
+        icon.className = 'moon-icon';
+        icon.innerText = icons[Math.floor(Math.random() * icons.length)];
+        icon.style.left = Math.random() * 100 + 'vw';
+        const duration = Math.random() * 10 + 15 + 's';
+        icon.style.setProperty('--duration', duration);
+        icon.style.fontSize = Math.random() * 10 + 10 + 'px';
+        
+        lunarContainer.appendChild(icon);
+        
+        setTimeout(() => {
+            icon.remove();
+        }, 25000);
+    }
+
+    createStars();
+    setInterval(createFloatingIcon, 3000); // 3 giây xuất hiện 1 icon trôi
 </script>
 </body>
 </html>
