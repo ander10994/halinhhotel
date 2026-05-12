@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hạ Linh Hotel | Bãi Sau Vũng Tàu - Mirror Lunar Edition</title>
+    <title>Hạ Linh Hotel | Bãi Sau Vũng Tàu - Lunar Mirror Edition</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,329 +38,281 @@
             margin: 0; padding: 0; min-height: 100vh;
         }
 
-        /* Hiệu ứng gương cho chữ */
+        /* Fix lỗi mất dấu chấm dưới chữ Ạ */
         .mirror-text {
-            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.1) 100%);
+            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.2) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            padding-bottom: 10px;
+            line-height: 1.2;
+            display: inline-block;
         }
 
-        /* Glassmorphism cao cấp */
+        /* Hiệu ứng gương Mobile/Desktop */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
         .glass-box {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        .glass-nav { 
-            background: rgba(15, 23, 42, 0.8); 
-            backdrop-filter: blur(20px); 
-            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        /* Review Slidebar */
+        .review-track { 
+            display: flex; 
+            gap: 1.5rem; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 0;
         }
+        .review-track::-webkit-scrollbar { height: 4px; }
+        .review-track::-webkit-scrollbar-thumb { background: rgba(245, 158, 11, 0.3); border-radius: 10px; }
+        .review-card { min-width: 320px; scroll-snap-align: start; flex-shrink: 0; }
 
-        /* UX Nút bấm giữ nguyên */
-        .hotline-btn:hover .hotline-number { max-width: 200px; margin-left: 10px; opacity: 1; }
-        .hotline-number { max-width: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; white-space: nowrap; }
-
-        /* Thumb Gallery */
-        .thumb-nav { border: 2px solid transparent; transition: all 0.3s; }
-        .thumb-nav:hover, .thumb-nav.active { border-color: #fbbf24; transform: translateY(-2px); }
-
-        /* Review Slider Animation */
-        .review-track { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-        .review-track::-webkit-scrollbar { display: none; }
-        .review-card { min-width: 300px; scroll-snap-align: start; }
-
-        /* Sao rơi & Trăng */
+        /* Sao rơi */
         .star { position: absolute; background: #fff; border-radius: 50%; opacity: 0; animation: twinkle var(--duration) ease-in-out infinite; }
-        .moon-icon { position: absolute; color: rgba(251, 191, 36, 0.2); pointer-events: none; animation: float-up var(--duration) linear forwards; }
-        @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.6; transform: scale(1.2); } }
-        @keyframes float-up { 0% { transform: translateY(110vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.4; } 90% { opacity: 0.4; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+        @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.7; transform: scale(1.2); } }
+        
+        .moon-icon { position: absolute; pointer-events: none; animation: float-up var(--duration) linear forwards; opacity: 0.3; }
+        @keyframes float-up { 0% { transform: translateY(110vh); opacity: 0; } 10% { opacity: 0.3; } 90% { opacity: 0.3; } 100% { transform: translateY(-10vh); opacity: 0; } }
     </style>
 </head>
-<body class="font-sans pb-24 md:pb-0">
+<body class="font-sans">
 
-    <div id="lunar-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;"></div>
+    <div id="lunar-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
-    <div class="hidden md:flex fixed right-6 bottom-32 flex-col gap-4 z-[120]">
-        <div onclick="window.location.href='tel:0365203109'" class="hotline-btn flex items-center bg-gold-500 text-lunar-950 p-3 rounded-full shadow-2xl cursor-pointer hover:scale-105 transition-all duration-300">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            <span class="hotline-number font-bold">0365 203 109</span>
-        </div>
-        <a href="https://zalo.me/0365203109" target="_blank" class="bg-white p-3 rounded-full shadow-2xl hover:scale-110 transition-transform border border-slate-100 flex items-center justify-center">
+    <div class="fixed bottom-6 left-6 right-6 z-[120] flex justify-between items-center md:hidden pointer-events-none">
+        <a href="https://zalo.me/0365203109" class="glass-btn p-4 rounded-2xl pointer-events-auto flex items-center justify-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" class="w-7 h-7" alt="Zalo">
+        </a>
+        <a href="tel:0365203109" class="glass-btn p-4 rounded-2xl pointer-events-auto flex items-center justify-center text-gold-500 animate-pulse">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+    </div>
+
+    <div class="hidden md:flex fixed right-8 bottom-10 flex-col gap-4 z-[120]">
+        <a href="tel:0365203109" class="glass-btn p-4 rounded-full text-gold-500 hover:scale-110 transition flex items-center gap-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
+            <span class="font-bold pr-2">0365 203 109</span>
+        </a>
+        <a href="https://zalo.me/0365203109" class="glass-btn p-4 rounded-full hover:scale-110 transition">
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" class="w-6 h-6" alt="Zalo">
         </a>
     </div>
 
-    <button id="scrollToTop" class="fixed bottom-40 right-4 md:top-1/2 md:-translate-y-1/2 md:right-8 z-[130] bg-gold-500 text-lunar-950 w-12 h-12 rounded-full shadow-2xl flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-white active:scale-90">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
-    </button>
-
-    <nav class="sticky top-0 z-[100] glass-nav">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between h-16 md:h-20 items-center">
-            <a href="#" class="text-xl md:text-2xl font-extrabold text-gold-500 flex items-center uppercase tracking-tighter">
-                <span class="mr-2">🌙</span> <span>HẠ LINH HOTEL</span>
+    <nav class="sticky top-0 z-[100] bg-lunar-950/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between h-20 items-center">
+            <a href="#" class="text-2xl font-black text-gold-500 flex items-center tracking-tighter">
+                <span class="mr-2">🌙</span> HẠ LINH
             </a>
-            <div class="hidden lg:flex space-x-8 font-semibold text-slate-300">
-                <a href="#rooms" class="hover:text-gold-400 transition" data-i18n="nav_rooms">Phòng nghỉ</a>
-                <a href="#reviews" class="hover:text-gold-400 transition" data-i18n="nav_reviews">Đánh giá</a>
-                <a href="#map" class="hover:text-gold-400 transition" data-i18n="nav_location">Vị trí</a>
+            <div class="hidden md:flex space-x-8 font-bold text-slate-400">
+                <a href="#rooms" class="hover:text-gold-500" data-i18n="nav_rooms">Phòng nghỉ</a>
+                <a href="#reviews" class="hover:text-gold-500" data-i18n="nav_reviews">Đánh giá</a>
+                <a href="#booking" class="hover:text-gold-500" data-i18n="nav_book">Đặt phòng</a>
             </div>
-            <div class="flex items-center gap-3">
-                <button onclick="toggleLang()" id="langBtn" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 font-bold text-xs text-white border border-white/10">EN</button>
-                <a href="#booking" class="bg-gold-500 text-lunar-950 px-6 py-2 rounded-full font-bold hover:bg-gold-400 transition shadow-lg" data-i18n="btn_book_now">Đặt ngay</a>
-            </div>
+            <button onclick="toggleLang()" id="langBtn" class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-bold">EN</button>
         </div>
     </nav>
 
-    <section class="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=2000" class="absolute inset-0 w-full h-full object-cover opacity-40 scale-105" alt="Hero">
-        <div class="absolute inset-0 bg-gradient-to-t from-lunar-900 to-transparent"></div>
-        <div class="relative z-20 text-center px-4">
-            <h1 class="text-5xl md:text-8xl font-bold mirror-text mb-2 uppercase tracking-tighter font-lucky" data-i18n="hero_title">HẠ LINH HOTEL</h1>
-            <p class="text-lg md:text-2xl italic text-gold-400 opacity-90" data-i18n="hero_sub">"Nghỉ ngơi êm ái - Trọn vẹn niềm vui"</p>
+    <section class="relative h-[65vh] flex items-center justify-center text-center px-4 overflow-hidden">
+        <div class="relative z-10">
+            <h1 class="text-6xl md:text-9xl font-black mirror-text tracking-tighter font-lucky" data-i18n="hero_title">HẠ LINH HOTEL</h1>
+            <p class="text-xl md:text-3xl italic text-gold-500 opacity-80 mt-[-10px]" data-i18n="hero_sub">"Nghỉ ngơi êm ái - Trọn vẹn niềm vui"</p>
+            <a href="#rooms" class="inline-block mt-10 bg-gold-500 text-lunar-950 px-10 py-4 rounded-full font-black hover:bg-white transition-all shadow-2xl">KHÁM PHÁ NGAY</a>
         </div>
     </section>
 
-    <section id="rooms" class="py-16 md:py-24 max-w-7xl mx-auto px-4 relative z-10">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4" data-i18n="rooms_title">Hệ Thống Phòng Lunar</h2>
-            <p class="text-slate-400 italic" data-i18n="rooms_subtitle">Khám phá không gian nghỉ dưỡng tinh tế nhất Bãi Sau</p>
-        </div>
-
-        <div class="grid gap-12">
-            <div class="glass-box rounded-[40px] overflow-hidden grid lg:grid-cols-2 gap-0 border border-white/5 group">
-                <div class="p-6">
-                    <div class="relative rounded-[30px] overflow-hidden h-[300px] md:h-[400px]">
-                        <img id="mainImg-new" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 p-2 bg-black/40 backdrop-blur-md rounded-2xl">
-                            <img onclick="changeRoomImg('new', this.src)" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=200" class="thumb-nav w-12 h-12 rounded-lg cursor-pointer object-cover active">
-                            <img onclick="changeRoomImg('new', this.src)" src="https://images.unsplash.com/photo-1505691938895-1758d7eaa511?w=200" class="thumb-nav w-12 h-12 rounded-lg cursor-pointer object-cover">
-                        </div>
-                    </div>
-                </div>
-                <div class="p-8 md:p-12 flex flex-col justify-center">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="text-3xl font-bold text-white mb-1">New Moon</h3>
-                            <p class="text-gold-400 italic text-sm" data-i18n="room_1_type">Phòng Đơn Tiêu Chuẩn</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-3xl font-black text-gold-500">250k</span>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold" data-i18n="per_night">mỗi đêm</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 py-6 border-y border-white/5 mb-8">
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>👥</span> 2 Người lớn</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🛏️</span> 1 Giường đôi</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>📐</span> 25 m²</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🚿</span> WC Khép kín</div>
-                    </div>
-                    <button onclick="selectRoomDirect('New Moon')" class="w-full bg-white/5 border border-white/20 text-white font-bold py-4 rounded-2xl hover:bg-gold-500 hover:text-lunar-950 transition" data-i18n="btn_choose">CHỌN HẠNG PHÒNG</button>
-                </div>
-            </div>
-
-            <div class="glass-box rounded-[40px] overflow-hidden grid lg:grid-cols-2 gap-0 border border-white/5 group">
-                <div class="p-6 lg:order-2">
-                    <div class="relative rounded-[30px] overflow-hidden h-[300px] md:h-[400px]">
-                        <img id="mainImg-half" src="https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                    </div>
-                </div>
-                <div class="p-8 md:p-12 lg:order-1 flex flex-col justify-center">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="text-3xl font-bold text-white mb-1">Half Moon</h3>
-                            <p class="text-gold-400 italic text-sm" data-i18n="room_2_type">Phòng Đôi Hiện Đại</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-3xl font-black text-gold-500">280k</span>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold" data-i18n="per_night">mỗi đêm</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 py-6 border-y border-white/5 mb-8">
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>👥</span> 2-3 Người</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🛏️</span> 2 Giường đơn</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>📐</span> 28 m²</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🏙️</span> Có cửa sổ lớn</div>
-                    </div>
-                    <button onclick="selectRoomDirect('Half Moon')" class="w-full border-2 border-gold-500 text-gold-500 font-bold py-4 rounded-2xl hover:bg-gold-500 hover:text-lunar-950 transition" data-i18n="btn_choose">CHỌN HẠNG PHÒNG</button>
-                </div>
-            </div>
-
-            <div class="glass-box rounded-[40px] overflow-hidden grid lg:grid-cols-2 gap-0 border-2 border-gold-500 shadow-[0_0_30px_rgba(245,158,11,0.2)] group relative">
-                <div class="absolute top-8 left-8 bg-gold-500 text-lunar-950 text-[10px] font-bold px-4 py-1.5 rounded-full z-20" data-i18n="tag_popular">PHỔ BIẾN NHẤT</div>
-                <div class="p-6">
-                    <div class="relative rounded-[30px] overflow-hidden h-[300px] md:h-[400px]">
-                        <img id="mainImg-full" src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                    </div>
-                </div>
-                <div class="p-8 md:p-12 flex flex-col justify-center">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="text-3xl font-bold text-white mb-1">Full Moon</h3>
-                            <p class="text-gold-400 italic text-sm" data-i18n="room_3_type">Phòng Gia Đình Tiêu Chuẩn</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-3xl font-black text-gold-500">350k</span>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold" data-i18n="per_night">mỗi đêm</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 py-6 border-y border-white/5 mb-8">
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>👥</span> 4 Người lớn</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🛏️</span> 2 Giường đôi</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>📐</span> 35 m²</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🚿</span> Full tiện nghi</div>
-                    </div>
-                    <button onclick="selectRoomDirect('Full Moon')" class="w-full bg-gold-500 text-lunar-950 font-black py-4 rounded-2xl hover:bg-white transition" data-i18n="btn_book_now_alt">ĐẶT PHÒNG NGAY</button>
-                </div>
-            </div>
-
-            <div class="glass-box rounded-[40px] overflow-hidden grid lg:grid-cols-2 gap-0 border border-white/5 group">
-                <div class="p-6 lg:order-2">
-                    <div class="relative rounded-[30px] overflow-hidden h-[300px] md:h-[400px]">
-                        <img id="mainImg-eclipse" src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                    </div>
-                </div>
-                <div class="p-8 md:p-12 lg:order-1 flex flex-col justify-center">
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="text-3xl font-bold text-white mb-1">Eclipse</h3>
-                            <p class="text-gold-400 italic text-sm" data-i18n="room_4_type">Phòng VIP Cao Cấp</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-3xl font-black text-gold-500">380k</span>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold" data-i18n="per_night">mỗi đêm</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 py-6 border-y border-white/5 mb-8">
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>👥</span> 2-4 Người</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🛏️</span> 1 King Size</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>📐</span> 40 m²</div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm"><span>🍷</span> Ban công biển</div>
-                    </div>
-                    <button onclick="selectRoomDirect('Eclipse')" class="w-full border border-white/20 text-white font-bold py-4 rounded-2xl hover:bg-white hover:text-lunar-950 transition" data-i18n="btn_choose">CHỌN HẠNG PHÒNG</button>
-                </div>
+    <section id="rooms" class="py-20 max-w-7xl mx-auto px-4 relative z-10">
+        <div class="mb-16 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4" data-i18n="rooms_title">Hạng Phòng Lunar</h2>
+            <div class="inline-block bg-gold-500/10 border border-gold-500/50 px-6 py-2 rounded-full">
+                <p class="text-gold-500 font-bold text-sm md:text-base">
+                    ⚠️ <span data-i18n="price_alert">Giá niêm yết áp dụng cho ngày thường. Cuối tuần & Lễ/Tết vui lòng liên hệ Hotline.</span>
+                </p>
             </div>
         </div>
 
-        <p class="text-center text-slate-500 text-xs mt-12 italic" data-i18n="price_disclaimer">
-            (*) Giá trên áp dụng cho ngày thường. Vui lòng liên hệ hotline/zalo để nhận báo giá chính xác cho cuối tuần, lễ, Tết.
-        </p>
+        <div class="grid gap-10">
+            <div class="glass-box rounded-[40px] overflow-hidden grid md:grid-cols-2 group border border-white/5">
+                <div class="h-[350px] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <h3 class="text-3xl font-bold text-white">New Moon (Trăng Non)</h3>
+                    <p class="text-gold-500 font-bold mt-2" data-i18n="r1_type">Phòng Đơn Tiêu Chuẩn - 1 Giường Đôi</p>
+                    <div class="my-6 h-px bg-white/10 w-full"></div>
+                    <div class="flex justify-between items-end">
+                        <div class="text-slate-400 text-sm">👥 2 Người lớn | 📐 25m²</div>
+                        <div class="text-right">
+                            <div class="text-4xl font-black text-white">250k</div>
+                            <div class="text-[10px] text-gold-500 font-bold uppercase tracking-widest" data-i18n="per_night">Ngày thường</div>
+                        </div>
+                    </div>
+                    <button onclick="selectRoomDirect('New Moon (Trăng Non)')" class="mt-8 border border-gold-500 text-gold-500 py-4 rounded-2xl font-bold hover:bg-gold-500 hover:text-lunar-950 transition">CHỌN PHÒNG</button>
+                </div>
+            </div>
+
+            <div class="glass-box rounded-[40px] overflow-hidden grid md:grid-cols-2 group border border-white/5">
+                <div class="h-[350px] overflow-hidden md:order-2">
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-8 md:p-12 flex flex-col justify-center md:order-1">
+                    <h3 class="text-3xl font-bold text-white">Half Moon (Trăng Khuyết)</h3>
+                    <p class="text-gold-500 font-bold mt-2" data-i18n="r2_type">Phòng Đôi Hiện Đại - 2 Giường Đơn</p>
+                    <div class="my-6 h-px bg-white/10 w-full"></div>
+                    <div class="flex justify-between items-end">
+                        <div class="text-slate-400 text-sm">👥 2 Người lớn | 📐 28m²</div>
+                        <div class="text-right">
+                            <div class="text-4xl font-black text-white">280k</div>
+                            <div class="text-[10px] text-gold-500 font-bold uppercase tracking-widest" data-i18n="per_night">Ngày thường</div>
+                        </div>
+                    </div>
+                    <button onclick="selectRoomDirect('Half Moon (Trăng Khuyết)')" class="mt-8 border border-gold-500 text-gold-500 py-4 rounded-2xl font-bold hover:bg-gold-500 hover:text-lunar-950 transition">CHỌN PHÒNG</button>
+                </div>
+            </div>
+
+            <div class="glass-box rounded-[40px] overflow-hidden grid md:grid-cols-2 group border-2 border-gold-500/50 shadow-2xl shadow-gold-500/10">
+                <div class="h-[350px] overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute top-6 left-6 bg-gold-500 text-lunar-950 px-4 py-1 rounded-full text-xs font-black">PHỔ BIẾN NHẤT</div>
+                </div>
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <h3 class="text-3xl font-bold text-white">Full Moon (Trăng Tròn)</h3>
+                    <p class="text-gold-500 font-bold mt-2" data-i18n="r3_type">Phòng Gia Đình - 2 Giường Đôi</p>
+                    <div class="my-6 h-px bg-white/10 w-full"></div>
+                    <div class="flex justify-between items-end">
+                        <div class="text-slate-400 text-sm">👥 4 Người lớn | 📐 35m²</div>
+                        <div class="text-right">
+                            <div class="text-4xl font-black text-gold-500">350k</div>
+                            <div class="text-[10px] text-white/50 font-bold uppercase tracking-widest" data-i18n="per_night">Ngày thường</div>
+                        </div>
+                    </div>
+                    <button onclick="selectRoomDirect('Full Moon (Trăng Tròn)')" class="mt-8 bg-gold-500 text-lunar-950 py-4 rounded-2xl font-black hover:bg-white transition">ĐẶT PHÒNG NGAY</button>
+                </div>
+            </div>
+
+            <div class="glass-box rounded-[40px] overflow-hidden grid md:grid-cols-2 group border border-white/5">
+                <div class="h-[350px] overflow-hidden md:order-2">
+                    <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-8 md:p-12 flex flex-col justify-center md:order-1">
+                    <h3 class="text-3xl font-bold text-white">Eclipse (Nguyệt Thực)</h3>
+                    <p class="text-gold-500 font-bold mt-2" data-i18n="r4_type">Hạng VIP - Ban Công Biển</p>
+                    <div class="my-6 h-px bg-white/10 w-full"></div>
+                    <div class="flex justify-between items-end">
+                        <div class="text-slate-400 text-sm">👥 2 Người lớn | 📐 40m²</div>
+                        <div class="text-right">
+                            <div class="text-4xl font-black text-white">380k</div>
+                            <div class="text-[10px] text-gold-500 font-bold uppercase tracking-widest" data-i18n="per_night">Ngày thường</div>
+                        </div>
+                    </div>
+                    <button onclick="selectRoomDirect('Eclipse (Nguyệt Thực)')" class="mt-8 border border-white/20 text-white py-4 rounded-2xl font-bold hover:bg-white hover:text-lunar-950 transition">CHỌN PHÒNG</button>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="reviews" class="py-16 bg-black/20 overflow-hidden">
+    <section id="reviews" class="py-20 bg-black/30 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-white mb-12" data-i18n="nav_reviews">Khách Hàng Đánh Giá</h2>
-            <div class="review-track pb-8">
-                <div class="review-card glass-box p-8 rounded-3xl border-t-2 border-gold-500/30">
-                    <div class="text-gold-500 mb-4">★★★★★</div>
-                    <p class="text-slate-300 italic mb-6">"Phòng Full Moon rất rộng, sạch sẽ và ấm cúng. Đi bộ ra Bãi Sau chỉ mất 3 phút. Rất hài lòng!"</p>
+            <h2 class="text-3xl font-bold text-center mb-12" data-i18n="nav_reviews">Khách Hàng Nói Gì?</h2>
+            <div class="review-track">
+                <div class="review-card glass-box p-8 rounded-3xl border-t-2 border-gold-500/20">
+                    <div class="text-gold-500 mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-300 italic mb-8">"Phòng Trăng Tròn rất rộng cho gia đình 4 người. Sạch sẽ, chủ khách sạn thân thiện vô cùng. Gần Bãi Sau nên tối đi dạo rất tiện."</p>
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-gold-500 rounded-full flex items-center justify-center font-bold text-lunar-950">M</div>
-                        <div><p class="font-bold text-sm">Minh Trần</p><p class="text-[10px] text-slate-500">Gia đình từ Sài Gòn</p></div>
+                        <div class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center font-black text-lunar-950">MT</div>
+                        <div><p class="font-bold">Minh Tâm</p><p class="text-xs text-slate-500">Du lịch cùng gia đình</p></div>
                     </div>
                 </div>
                 <div class="review-card glass-box p-8 rounded-3xl">
-                    <div class="text-gold-500 mb-4">★★★★★</div>
-                    <p class="text-slate-300 italic mb-6">"Thích phong cách thiết kế Lunar của khách sạn, tối giản nhưng sang trọng. Giá cực kỳ cạnh tranh."</p>
+                    <div class="text-gold-500 mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-300 italic mb-8">"Giá cực kỳ tốt so với mặt bằng chung. Decor phòng tone màu tối rất sang, ngủ rất sâu giấc. Sẽ quay lại!"</p>
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center font-bold">L</div>
-                        <div><p class="font-bold text-sm">Lan Anh</p><p class="text-[10px] text-slate-500">Khách du lịch đơn</p></div>
+                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-black">LH</div>
+                        <div><p class="font-bold">Lê Hiếu</p><p class="text-xs text-slate-500">Khách đơn</p></div>
                     </div>
                 </div>
-                <div class="review-card glass-box p-8 rounded-3xl border-t-2 border-gold-500/30">
-                    <div class="text-gold-500 mb-4">★★★★★</div>
-                    <p class="text-slate-300 italic mb-6">"Chủ khách sạn siêu nhiệt tình, hỗ trợ thuê xe máy giá rẻ hơn bên ngoài. Chắc chắn sẽ quay lại."</p>
+                <div class="review-card glass-box p-8 rounded-3xl border-t-2 border-gold-500/20">
+                    <div class="text-gold-500 mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-300 italic mb-8">"Thích cái tool đặt phòng qua Zalo của ksan, rất nhanh gọn. Vị trí ở Phan Văn Trị là trung tâm ăn uống luôn rồi."</p>
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-gold-500 rounded-full flex items-center justify-center font-bold text-lunar-950">H</div>
-                        <div><p class="font-bold text-sm">Hoàng Nam</p><p class="text-[10px] text-slate-500">Nhóm bạn phượt</p></div>
+                        <div class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center font-black text-lunar-950">QN</div>
+                        <div><p class="font-bold">Quỳnh Như</p><p class="text-xs text-slate-500">Nhóm bạn thân</p></div>
                     </div>
                 </div>
                 <div class="review-card glass-box p-8 rounded-3xl">
-                    <div class="text-gold-500 mb-4">★★★★★</div>
-                    <p class="text-slate-300 italic mb-6">"Vị trí ngay Phan Văn Trị rất tiện để đi ăn uống buổi tối. Phòng ốc cách âm khá tốt, ngủ rất êm."</p>
+                    <div class="text-gold-500 mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-300 italic mb-8">"Ban công phòng Eclipse ngắm cảnh cực chill. Khách sạn yên tĩnh dù nằm ở khu vực đông đúc."</p>
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center font-bold">P</div>
-                        <div><p class="font-bold text-sm">Phương Vy</p><p class="text-[10px] text-slate-500">Cặp đôi du lịch</p></div>
+                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-black">PB</div>
+                        <div><p class="font-bold">Phúc Bùi</p><p class="text-xs text-slate-500">Cặp đôi</p></div>
                     </div>
                 </div>
-            </div>
-            <div class="flex justify-center gap-2 mt-4">
-                <div class="w-8 h-1 bg-gold-500 rounded-full"></div>
-                <div class="w-2 h-1 bg-slate-700 rounded-full"></div>
-                <div class="w-2 h-1 bg-slate-700 rounded-full"></div>
             </div>
         </div>
     </section>
 
-    <section id="map" class="py-16 md:py-24 max-w-7xl mx-auto px-4">
+    <section id="booking" class="py-20 max-w-4xl mx-auto px-4 relative z-10">
         <div class="text-center mb-10">
-            <h2 class="text-2xl font-bold text-white mb-2 uppercase" data-i18n="nav_location">Vị Trí Đắc Địa</h2>
-            <p class="text-slate-400">44-46 Phan Văn Trị, Phường 2, Vũng Tàu</p>
-        </div>
-        <div class="rounded-[40px] overflow-hidden glass-box border-4 border-white/10 h-[400px] p-1">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.123!2d107.091!3d10.345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175678bb6f55555%3A0x6789abcd1234efgh!2zNDQtNDYgUGhhbiBWxINuIFRy4buLLCBQaMaw4budbmcgMiwIFZÅW5nIFTHUsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1715500000000" width="100%" height="100%" style="border:0; border-radius: 35px;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
-
-    <section id="booking" class="py-16 md:py-24 max-w-4xl mx-auto px-4 relative z-10">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl md:text-5xl font-bold font-lucky text-gold-500 uppercase mirror-text" data-i18n="form_title">ĐẶT PHÒNG NHANH</h2>
-            <p class="text-slate-400 mt-2" data-i18n="form_subtitle">Thông tin sẽ được tự động sao chép để dán vào Zalo</p>
+            <h2 class="text-4xl font-bold font-lucky text-gold-500 uppercase" data-i18n="form_title">ĐẶT PHÒNG NHANH</h2>
         </div>
 
-        <form onsubmit="handleBooking(event)" class="glass-box p-8 md:p-12 rounded-[40px]">
-            <div class="grid grid-cols-2 gap-6 mb-8">
-                <div class="col-span-2 md:col-span-1 space-y-1">
-                    <label class="text-[10px] font-bold uppercase text-slate-500" data-i18n="lbl_name">Họ và Tên</label>
-                    <input type="text" id="name" required class="w-full bg-white rounded-2xl px-5 py-4 outline-none font-bold text-lunar-900 focus:ring-4 ring-gold-500/30 transition">
+        <form onsubmit="handleBooking(event)" class="glass-box p-8 md:p-12 rounded-[40px] border border-white/10">
+            <div class="grid grid-cols-2 gap-6">
+                <div class="col-span-2 md:col-span-1">
+                    <label class="text-[10px] font-bold uppercase text-slate-500">Họ và Tên</label>
+                    <input type="text" id="name" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none font-bold focus:border-gold-500 transition mt-1">
                 </div>
-                <div class="col-span-2 md:col-span-1 space-y-1">
-                    <label class="text-[10px] font-bold uppercase text-slate-500" data-i18n="lbl_phone">Số điện thoại</label>
-                    <input type="tel" id="phone" required class="w-full bg-white rounded-2xl px-5 py-4 outline-none font-bold text-lunar-900">
+                <div class="col-span-2 md:col-span-1">
+                    <label class="text-[10px] font-bold uppercase text-slate-500">Số điện thoại</label>
+                    <input type="tel" id="phone" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none font-bold focus:border-gold-500 transition mt-1">
                 </div>
-                <div class="col-span-2 md:col-span-1 space-y-1">
-                    <label class="text-[10px] font-bold uppercase text-slate-500" data-i18n="lbl_room">Hạng phòng</label>
-                    <select id="room" class="w-full bg-white rounded-2xl px-5 py-4 font-bold text-lunar-900 outline-none">
-                        <option value="New Moon">New Moon (Phòng Đơn Tiêu Chuẩn)</option>
-                        <option value="Half Moon">Half Moon (Phòng Đôi Hiện Đại)</option>
-                        <option value="Full Moon" selected>Full Moon (Phòng Gia Đình Tiêu Chuẩn)</option>
-                        <option value="Eclipse">Eclipse (Phòng VIP Cao Cấp)</option>
+                <div class="col-span-2 md:col-span-1">
+                    <label class="text-[10px] font-bold uppercase text-slate-500">Hạng phòng</label>
+                    <select id="room" class="w-full bg-lunar-900 border border-white/10 rounded-2xl px-5 py-4 font-bold outline-none mt-1">
+                        <option>New Moon (Trăng Non)</option>
+                        <option>Half Moon (Trăng Khuyết)</option>
+                        <option selected>Full Moon (Trăng Tròn)</option>
+                        <option>Eclipse (Nguyệt Thực)</option>
                     </select>
                 </div>
-                <div class="col-span-2 md:col-span-1 space-y-1">
-                    <label class="text-[10px] font-bold uppercase text-slate-500" data-i18n="lbl_guests">Số người</label>
-                    <select id="guests" class="w-full bg-white rounded-2xl px-5 py-4 font-bold text-lunar-900 outline-none">
+                <div class="col-span-2 md:col-span-1">
+                    <label class="text-[10px] font-bold uppercase text-slate-500">Số người</label>
+                    <select id="guests" class="w-full bg-lunar-900 border border-white/10 rounded-2xl px-5 py-4 font-bold outline-none mt-1">
                         <option value="1">1 Người</option>
                         <option value="2" selected>2 Người</option>
-                        <option value="3">3 Người</option>
                         <option value="4">4 Người</option>
-                        <option value="5">5 Người</option>
                         <option value="6">6 Người (Tối đa)</option>
                     </select>
                 </div>
-                <div class="col-span-1 space-y-1">
-                    <label class="text-[10px] font-bold uppercase text-slate-500" data-i18n="lbl_checkin">Ngày nhận</label>
-                    <input id="checkin" class="w-full bg-white rounded-2xl px-5 py-4 font-bold text-lunar-900 cursor-pointer" readonly>
+                <div class="col-span-2 md:col-span-1">
+                    <label class="text-[10px] font-bold uppercase text-slate-500">Ngày nhận</label>
+                    <input id="checkin" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 font-bold outline-none mt-1 cursor-pointer" readonly>
                 </div>
-                <div class="col-span-1 space-y-1">
-                    <label class="text-[10px] font-bold uppercase text-slate-500" data-i18n="lbl_checkout">Ngày trả</label>
-                    <input id="checkout" class="w-full bg-white rounded-2xl px-5 py-4 font-bold text-lunar-900 cursor-pointer" readonly>
+                <div class="col-span-2 md:col-span-1">
+                    <label class="text-[10px] font-bold uppercase text-slate-500">Ngày trả</label>
+                    <input id="checkout" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 font-bold outline-none mt-1 cursor-pointer" readonly>
                 </div>
             </div>
-            <button type="submit" class="w-full bg-gold-500 text-lunar-950 font-black text-lg py-5 rounded-3xl hover:bg-white transition shadow-2xl uppercase tracking-wider" data-i18n="btn_submit_zalo">XÁC NHẬN & GỬI QUA ZALO</button>
+            <button type="submit" class="w-full bg-gold-500 text-lunar-950 font-black text-lg py-5 rounded-3xl mt-10 hover:bg-white transition-all uppercase tracking-widest shadow-2xl">XÁC NHẬN & MỞ ZALO</button>
         </form>
     </section>
 
-    <footer class="bg-black/40 py-12 text-center border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-2xl font-bold text-gold-500 font-lucky uppercase mb-2">HẠ LINH HOTEL 🌙</h2>
-            <p class="text-slate-500 text-xs">44-46 Phan Văn Trị, Phường 2, Vũng Tàu</p>
-            <p class="text-gold-400 font-bold text-xl mt-4">0365 203 109</p>
-            <p class="text-slate-700 text-[10px] mt-8 uppercase tracking-widest">© 2026 Developed by Steve AI - Senior Partner</p>
-        </div>
+    <section id="map" class="py-10 max-w-7xl mx-auto px-4 h-[450px]">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.105267389146!2d107.0863071758416!3d10.333454867160613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31756f709192461d%3A0xe54955b207559c5d!2zNDQgUGhhbiBWxINuIFRy4buLLCBQaMaw4budbmcgMiwIFRow6BuaCBwaOG7kSBWxaluZyBUw6B1LCBCw6AgUuG7i2EgLSBWxaluZyBUw6B1LCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1700000000000" width="100%" height="100%" style="border:0; border-radius: 40px; filter: invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <footer class="bg-black/50 py-16 text-center border-t border-white/5 relative z-10">
+        <h2 class="text-2xl font-bold text-gold-500 font-lucky mb-4 uppercase">HẠ LINH HOTEL 🌙</h2>
+        <p class="text-slate-500 text-sm">44-46 Phan Văn Trị, Phường 2, Vũng Tàu</p>
+        <p class="text-gold-500 font-bold text-xl mt-4">0365 203 109</p>
+        <p class="text-slate-800 text-[10px] mt-10 uppercase tracking-widest">© 2026 Developed by Steve - AI Hotel Partner</p>
     </footer>
 
     <script type="text/javascript">
@@ -374,27 +326,24 @@
     </script>
 
     <script>
-        // Đa ngôn ngữ
+        // Init Datepickers
+        const fpConfig = { dateFormat: "d/m/Y", minDate: "today", locale: "vn" };
+        flatpickr("#checkin", { ...fpConfig, defaultDate: "today" });
+        flatpickr("#checkout", { ...fpConfig, defaultDate: new Date().getTime() + 86400000 });
+
+        // Logic đa ngôn ngữ
         const i18n = {
             vi: {
-                nav_rooms: "Phòng nghỉ", nav_reviews: "Đánh giá", nav_location: "Vị trí",
-                btn_book_now: "Đặt ngay", hero_title: "HẠ LINH HOTEL", hero_sub: '"Nghỉ ngơi êm ái - Trọn vẹn niềm vui"',
-                rooms_title: "Hệ Thống Phòng Lunar", rooms_subtitle: "Khám phá không gian nghỉ dưỡng tinh tế nhất Bãi Sau",
-                per_night: "mỗi đêm", btn_choose: "CHỌN HẠNG PHÒNG", btn_book_now_alt: "ĐẶT PHÒNG NGAY",
-                tag_popular: "PHỔ BIẾN NHẤT", price_disclaimer: "(*) Giá trên áp dụng cho ngày thường. Vui lòng liên hệ hotline/zalo để nhận báo giá chính xác cho cuối tuần, lễ, Tết.",
-                form_title: "ĐẶT PHÒNG NHANH", form_subtitle: "Thông tin sẽ được tự động sao chép để dán vào Zalo",
-                lbl_name: "Họ và Tên", lbl_phone: "Số điện thoại", lbl_room: "Hạng phòng", lbl_guests: "Số người",
-                lbl_checkin: "Ngày nhận", lbl_checkout: "Ngày trả", btn_submit_zalo: "XÁC NHẬN & GỬI QUA ZALO"
+                nav_rooms: "Phòng nghỉ", nav_reviews: "Đánh giá", nav_book: "Đặt ngay",
+                hero_title: "HẠ LINH HOTEL", hero_sub: '"Nghỉ ngơi êm ái - Trọn vẹn niềm vui"',
+                rooms_title: "Hạng Phòng Lunar", price_alert: "Giá niêm yết áp dụng cho ngày thường. Cuối tuần & Lễ/Tết vui lòng liên hệ Hotline.",
+                per_night: "Ngày thường", form_title: "ĐẶT PHÒNG NHANH"
             },
             en: {
-                nav_rooms: "Rooms", nav_reviews: "Reviews", nav_location: "Location",
-                btn_book_now: "Book Now", hero_title: "HA LINH HOTEL", hero_sub: '"Soft Rest - Pure Joy"',
-                rooms_title: "Lunar Room System", rooms_subtitle: "Explore the most exquisite space in Back Beach",
-                per_night: "per night", btn_choose: "CHOOSE ROOM", btn_book_now_alt: "BOOK NOW",
-                tag_popular: "MOST POPULAR", price_disclaimer: "(*) Weekday prices. Contact us via Hotline/Zalo for weekend or holiday rates.",
-                form_title: "QUICK BOOKING", form_subtitle: "Information will be copied automatically for Zalo",
-                lbl_name: "Full Name", lbl_phone: "Phone Number", lbl_room: "Room Type", lbl_guests: "Guests",
-                lbl_checkin: "Check-in", lbl_checkout: "Check-out", btn_submit_zalo: "CONFIRM & SEND TO ZALO"
+                nav_rooms: "Rooms", nav_reviews: "Reviews", nav_book: "Booking",
+                hero_title: "HA LINH HOTEL", hero_sub: '"Soft Sleep - Pure Joy"',
+                rooms_title: "Lunar Accommodations", price_alert: "Prices for weekdays. Please contact for weekends & holidays.",
+                per_night: "Weekdays", form_title: "QUICK BOOKING"
             }
         };
 
@@ -408,67 +357,44 @@
             });
         }
 
-        // Init Datepickers
-        flatpickr("#checkin", { dateFormat: "d/m/Y", minDate: "today", locale: "vn", defaultDate: "today" });
-        flatpickr("#checkout", { dateFormat: "d/m/Y", minDate: "today", locale: "vn", defaultDate: new Date().getTime() + 86400000 });
-
-        function changeRoomImg(id, src) {
-            document.getElementById(`mainImg-${id}`).src = src;
-        }
-
-        function selectRoomDirect(room) {
-            document.getElementById('room').value = room;
+        function selectRoomDirect(name) {
+            document.getElementById('room').value = name;
             document.getElementById('booking').scrollIntoView({behavior: 'smooth'});
         }
 
         async function handleBooking(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const room = document.getElementById('room').value;
-            const guests = document.getElementById('guests').value;
-            const msg = `[HẠ LINH HOTEL - ĐẶT PHÒNG]\n- Khách: ${name}\n- SĐT: ${document.getElementById('phone').value}\n- Hạng phòng: ${room}\n- Số người: ${guests}\n- Ngày: ${document.getElementById('checkin').value} đến ${document.getElementById('checkout').value}`;
-            
-            try {
-                await navigator.clipboard.writeText(msg);
-                alert("Đã sao chép thông tin! Hãy 'Dán' vào ô chat Zalo sắp mở ra nhé bro.");
-            } catch (err) {}
+            const msg = `[HẠ LINH HOTEL]\n- Khách: ${document.getElementById('name').value}\n- SĐT: ${document.getElementById('phone').value}\n- Phòng: ${document.getElementById('room').value}\n- Số người: ${document.getElementById('guests').value}\n- Ngày: ${document.getElementById('checkin').value} đến ${document.getElementById('checkout').value}`;
+            try { await navigator.clipboard.writeText(msg); alert("Đã sao chép! Hãy dán vào Zalo sắp mở nhé."); } catch (err) {}
             window.open(`https://zalo.me/0365203109?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // Sao rơi & Trăng
-        const lunarContainer = document.getElementById('lunar-container');
-        function initLunar() {
+        // Tạo sao rơi
+        const lunar = document.getElementById('lunar-container');
+        function initStars() {
             for (let i = 0; i < 40; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
+                const s = document.createElement('div');
+                s.className = 'star';
                 const size = Math.random() * 2 + 1 + 'px';
-                star.style.width = size; star.style.height = size;
-                star.style.top = Math.random() * 100 + 'vh';
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
-                lunarContainer.appendChild(star);
+                s.style.width = size; s.style.height = size;
+                s.style.top = Math.random() * 100 + 'vh';
+                s.style.left = Math.random() * 100 + 'vw';
+                s.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+                lunar.appendChild(s);
             }
         }
         function createMoon() {
-            const icon = document.createElement('div');
-            icon.className = 'moon-icon';
-            icon.innerText = ['🌙', '✨', '⭐'][Math.floor(Math.random() * 3)];
-            icon.style.left = Math.random() * 100 + 'vw';
-            icon.style.setProperty('--duration', Math.random() * 10 + 15 + 's');
-            icon.style.fontSize = Math.random() * 20 + 10 + 'px';
-            lunarContainer.appendChild(icon);
-            setTimeout(() => icon.remove(), 25000);
+            const m = document.createElement('div');
+            m.className = 'moon-icon';
+            m.innerText = ['🌙', '✨', '⭐'][Math.floor(Math.random()*3)];
+            m.style.left = Math.random() * 100 + 'vw';
+            m.style.setProperty('--duration', Math.random() * 10 + 15 + 's');
+            m.style.fontSize = '20px';
+            lunar.appendChild(m);
+            setTimeout(() => m.remove(), 25000);
         }
-        initLunar();
-        setInterval(createMoon, 5000);
-
-        // Scroll Top Logic
-        const scrollBtn = document.getElementById("scrollToTop");
-        window.onscroll = () => {
-            if (window.pageYOffset > 500) { scrollBtn.classList.replace("opacity-0", "opacity-100"); scrollBtn.classList.replace("invisible", "visible"); }
-            else { scrollBtn.classList.replace("opacity-100", "opacity-0"); scrollBtn.classList.replace("visible", "invisible"); }
-        };
-        scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+        initStars();
+        setInterval(createMoon, 6000);
     </script>
 </body>
 </html>
